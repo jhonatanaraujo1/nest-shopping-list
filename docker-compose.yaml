@@ -1,0 +1,22 @@
+version: '3'
+services:
+  postgres:
+    image: "postgres"
+    environment:
+      - POSTGRES_PASSWORD=postgres12
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=shopping_list
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./migration/docker-database-initial.sql:/docker-entrypoint-initdb.d/docker-database-initial.sql
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "jhonatan.araujo1@hotmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "123456789"
+    ports:
+      - "54321:80"
+    depends_on:
+      - postgres
